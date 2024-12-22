@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     if (empty($errors)) {
-        $stmt = $conn->prepare("SELECT id, username, password, role_id FROM users WHERE username = ? OR email = ?");
-        $stmt->bind_param("ss", $username, $username);
+        $stmt = $conn->prepare("SELECT id, username, password, role_id FROM users WHERE username = ? ");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
         
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errors[] = "Invalid username or password";
             }
         } else {
-            $errors[] = "Invalid username or password";
+            $errors[] = "Invalid somethiiiiiing or password";
         }
     }
 }
