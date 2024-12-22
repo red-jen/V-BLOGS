@@ -75,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </head>
 <body class="bg-gray-100">
+<?php require('nav-bar.php'); ?>
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-bold mb-6">Create New Blog Post</h2>
