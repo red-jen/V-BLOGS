@@ -1,4 +1,19 @@
+<?php
+session_start();
+require_once 'conecting.php';
 
+// Fetch all posts with user and category information
+$query = "SELECT 
+    articles.*, 
+    users.username as author_name,
+    categories.name as category_name
+FROM articles
+JOIN users ON articles.user_id = users.id
+JOIN categories ON articles.category_id = categories.id
+ORDER BY articles.created_at DESC";
+
+$result = $conn->query($query);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -41,58 +56,40 @@
         </div>
 
         <!-- Posts Grid -->
+        <?php if ($result->num_rows > 0): ?>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Post Card 1 -->
+           
+                <?php while ($post = $result->fetch_assoc()): ?>
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="https://via.placeholder.com/400x250" alt="Post image" class="w-full h-48 object-cover">
+            <?php if ($post['image']): ?>
+                <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="Post image" class="w-full h-48 object-cover">
+                <?php endif; ?>
                 <div class="p-6">
-                    <span class="text-green-500 text-sm font-semibold">Technology</span>
-                    <h3 class="text-xl font-semibold mt-2">The Future of AI</h3>
-                    <p class="text-gray-600 mt-2">Exploring the latest developments in artificial intelligence and its impact...</p>
+                    <span class="text-green-500 text-sm font-semibold"><?php echo htmlspecialchars($post['category_name']); ?></span>
+                    <h3 class="text-xl font-semibold mt-2"> <?php echo htmlspecialchars($post['title']); ?></h3>
+                    <p class="text-gray-600 mt-2"><?php 
+                                $excerpt = substr(strip_tags($post['content']), 0, 150);
+                                echo htmlspecialchars($excerpt) . '...'; 
+                                ?></p>
                     <div class="mt-4 flex items-center justify-between">
                         <div class="flex items-center">
                             <img src="https://via.placeholder.com/40x40" alt="Author" class="w-8 h-8 rounded-full">
-                            <span class="ml-2 text-sm text-gray-500">Jane Smith</span>
+                            <span class="ml-2 text-sm text-gray-500">   By <?php echo htmlspecialchars($post['author_name']); ?></span>
                         </div>
-                        <span class="text-sm text-gray-500">5 min read</span>
+                        <span class="text-sm text-gray-500">  <?php echo date('M d, Y', strtotime($post['created_at'])); ?></span>
                     </div>
                 </div>
             </div>
+            <?php endwhile; ?>
 
-            <!-- Post Card 2 -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="https://via.placeholder.com/400x250" alt="Post image" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <span class="text-green-500 text-sm font-semibold">Travel</span>
-                    <h3 class="text-xl font-semibold mt-2">Hidden Gems in Paris</h3>
-                    <p class="text-gray-600 mt-2">Discover the lesser-known attractions in the City of Light...</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/40x40" alt="Author" class="w-8 h-8 rounded-full">
-                            <span class="ml-2 text-sm text-gray-500">Mark Johnson</span>
-                        </div>
-                        <span class="text-sm text-gray-500">8 min read</span>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Post Card 3 -->
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <img src="https://via.placeholder.com/400x250" alt="Post image" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <span class="text-green-500 text-sm font-semibold">Food</span>
-                    <h3 class="text-xl font-semibold mt-2">Mediterranean Recipes</h3>
-                    <p class="text-gray-600 mt-2">Delicious and healthy Mediterranean dishes you can make at home...</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/40x40" alt="Author" class="w-8 h-8 rounded-full">
-                            <span class="ml-2 text-sm text-gray-500">Sarah Davis</span>
-                        </div>
-                        <span class="text-sm text-gray-500">6 min read</span>
-                    </div>
-                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <div class="text-center py-8">
+                <p class="text-gray-600 text-lg">No blog posts found.</p>
+            </div>
+        <?php endif; ?>
 
         <!-- Pagination -->
         <div class="mt-8 flex justify-center">
