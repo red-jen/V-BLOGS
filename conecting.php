@@ -2,7 +2,7 @@
  $host = '127.0.0.1'; 
 $user = 'root'; 
 $password = 'Ren-ji24'; 
-$database = 'car_rental_system'; 
+$database = 'blog_systeme'; 
 $conn = new mysqli($host, $user, $password, $database); 
 if ($conn->connect_error) { 
     
