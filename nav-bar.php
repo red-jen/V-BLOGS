@@ -8,7 +8,7 @@
                 <a href="logout.php" class="text-white hover:text-gray-300">Logout</a>
             <?php else: ?>
                 <a href="login.php" class="text-white mr-4 hover:text-gray-300">Login</a>
-                <a href="register.php" class="text-white hover:text-gray-300">Register</a>
+                <a href="sign-up.php" class="text-white hover:text-gray-300">Register</a>
             <?php endif; ?>
         </div>
     </div>

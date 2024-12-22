@@ -1,12 +1,3 @@
-<?php      
-$dsn = "mysql:host=localhost;dbname=;charset=utf8mb4;allowPublicKeyRetrieval=true";
-$pdo = new PDO($dsn, "username", "password");
-
-?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,33 +10,7 @@ $pdo = new PDO($dsn, "username", "password");
 </head>
 <body class="bg-gray-100">
     <!-- Navigation Bar -->
-    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between">
-                <!-- Logo and Main Nav -->
-                <div class="flex space-x-7">
-                    <a href="#" class="flex items-center py-4 px-2">
-                        <span class="font-bold text-2xl text-gray-800">BlogPlatform</span>
-                    </a>
-                    <div class="hidden md:flex items-center space-x-1">
-                        <a href="#" class="py-4 px-2 text-green-500 border-b-4 border-green-500">Home</a>
-                        <a href="#" class="py-4 px-2 text-gray-500 hover:text-green-500">Categories</a>
-                        <a href="#" class="py-4 px-2 text-gray-500 hover:text-green-500">About</a>
-                    </div>
-                </div>
-                <!-- Search Bar -->
-                <div class="hidden md:flex items-center space-x-3">
-                    <div class="relative">
-                        <input type="text" class="bg-gray-100 rounded-full px-4 py-2 w-64" placeholder="Search...">
-                        <button class="absolute right-3 top-2">
-                            <i class="fas fa-search text-gray-500"></i>
-                        </button>
-                    </div>
-                    <a href="#" class="py-2 px-4 bg-green-500 text-white rounded-full hover:bg-green-600">Login</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php require('nav-bar.php'); ?>
 
     <!-- Main Content -->
     <div class="container mx-auto mt-20 px-4 py-8">
