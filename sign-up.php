@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'conecting.php'; // Your database connection file
+require_once 'conecting.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
@@ -45,13 +45,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Hash password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
+        // Generate remember token
+        $remember_token = bin2hex(random_bytes(32));
+        
+        // Current timestamp
+        $current_time = date('Y-m-d H:i:s');
+        
         // Insert new user
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password, role_id) VALUES (?, ?, ?, 2)");
-        $stmt->bind_param("sss", $username, $email, $hashed_password);
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password, remember_token, role_id, created_at, updated_at) VALUES (?, ?, ?, ?, 2, ?, ?)");
+        $stmt->bind_param("ssssss", $username, $email, $hashed_password, $remember_token, $current_time, $current_time);
         
         if ($stmt->execute()) {
             $_SESSION['success_message'] = "Registration successful! Please log in.";
-            header("Location: login.php");
+            header("Location: log-in.php");
             exit();
         } else {
             $errors[] = "Registration failed. Please try again.";
