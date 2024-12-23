@@ -89,7 +89,7 @@ $result = $conn->query($query);
 
     <?php if (isset($_SESSION['user_id']) && $_SESSION['role_id'] == 1): ?>
     <div class="fixed bottom-4 right-4">
-        <a href="admin-dashboard.php" 
+        <a href="users_mng.php" 
            class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full shadow-lg">
             Admin Dashboard
         </a>
