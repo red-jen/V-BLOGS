@@ -293,10 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     <script>
     function toggleLike() {
-        <?php if (!isset($_SESSION['user_id'])): ?>
-            alert('Please log in to like this post');
-            return;
-        <?php endif; ?>
+       
 
         $.post('view-post.php?id=<?php echo $post_id; ?>', {
             action: 'toggle_like'
