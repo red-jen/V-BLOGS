@@ -4,8 +4,8 @@ session_start();
 require_once 'conecting.php';
 require_once 'functions.php';
 
-// Check if user is logged in
-requireLogin();
+
+
 
 // Fetch categories for the dropdown
 $categories_query = "SELECT * FROM categories";

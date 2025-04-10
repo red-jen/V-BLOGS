@@ -3,8 +3,8 @@ session_start();
 require_once 'conecting.php';
 require_once 'functions.php';
 
-if (!isset($_GET['id'])) {
-    header('Location: my_posts.php');
+if (!isset($_GET['id'])) {      // in the page my post we send the id of the article with the url
+    header('Location: my_posts.php');   
     exit;
 }
 

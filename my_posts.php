@@ -62,7 +62,7 @@ $result = $conn->query($query);
                             
                             <p class="text-gray-600 mb-4">
                                 <?php 
-                                $excerpt = substr(strip_tags($post['content']), 0, 150);
+                                $excerpt = substr($post['content'], 0, 150);
                                 echo htmlspecialchars($excerpt) . '...'; 
                                 ?>
                             </p>

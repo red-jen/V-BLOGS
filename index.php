@@ -1,19 +1,26 @@
 <?php
+
 session_start();
 require_once 'conecting.php';
 
-// Fetch all posts with user and category information
-$query = "SELECT 
-    articles.*, 
-    users.username as author_name,
-    categories.name as category_name
-FROM articles
-JOIN users ON articles.user_id = users.id
-JOIN categories ON articles.category_id = categories.id
-ORDER BY articles.created_at DESC";
 
-$result = $conn->query($query);
+    // Prepare the SQL query
+    $query = "SELECT 
+        articles.*, 
+        users.username AS author_name,
+        categories.name AS category_name
+    FROM articles
+    JOIN users ON articles.user_id = users.id
+    JOIN categories ON articles.category_id = categories.id
+    ORDER BY articles.created_at DESC";
+
+  
+    $result = $conn->query($query);
+
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

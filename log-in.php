@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once 'conecting.php'; // Your database connection file
+require_once 'conecting.php'; 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {      // we check that the form method is post to avoid problems in the code 
     $username = trim($_POST['username']);
     $password = $_POST['password'];
     $remember = isset($_POST['remember']) ? true : false;
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
             
             if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_id'] = $user['id'];  
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role_id'] = $user['role_id'];
                 

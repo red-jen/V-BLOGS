@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
     // Start transaction
     $conn->begin_transaction();
     
-    try {
+
         // Delete user's posts first (this will cascade to comments due to foreign key)
         $delete_posts = $conn->prepare("DELETE FROM articles WHERE user_id = ?");
         $delete_posts->bind_param("i", $user_id);
@@ -42,11 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
         
-    } catch (Exception $e) {
-        // Rollback transaction on error
-        $conn->rollback();
-        $_SESSION['error_message'] = "Error deleting user: " . $e->getMessage();
-    }
+  
 }
 ?>
 
@@ -149,13 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
                                             </svg>
                                         </button>
                                     </form>
-                                    <a href="view_user.php?id=<?php echo $user['id']; ?>" 
-                                       class="text-blue-600 hover:text-blue-900 mx-1">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </a>
+                                   
                                 </td>
                             </tr>
                         <?php endwhile; ?>
